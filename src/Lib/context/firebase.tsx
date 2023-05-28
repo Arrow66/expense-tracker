@@ -1,12 +1,12 @@
 "use client"
 
-import { initializeApp } from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
 import {
     FirebaseAppProvider,
     AuthProvider,
     DatabaseProvider
 } from 'reactfire';
-import { initializeAuth, browserLocalPersistence, browserPopupRedirectResolver,inMemoryPersistence, browserSessionPersistence, indexedDBLocalPersistence, } from "firebase/auth";
+import { initializeAuth, browserLocalPersistence, browserPopupRedirectResolver,inMemoryPersistence, browserSessionPersistence, indexedDBLocalPersistence, getAuth, } from "firebase/auth";
 import configuration from '~/configuration';
 import { ReactNode } from "react"
 import { getDatabase } from 'firebase/database';
@@ -19,10 +19,25 @@ interface FireBaseProviderProps {
 const FireBaseProvider: React.FC<FireBaseProviderProps> = ({ children }) => {
     const app = initializeApp(configuration.firebase);
     const persistence = typeof window === undefined ? inMemoryPersistence: [indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence]
-    const auth = initializeAuth(app, {
-        persistence,
-        popupRedirectResolver: browserPopupRedirectResolver,
-    });
+    
+    const provideAuth  = (app: FirebaseApp)=>{
+
+        if(typeof window === undefined)
+        {
+            return getAuth(app)
+
+    }
+    else
+    {
+        return initializeAuth(app, {
+            persistence,
+            popupRedirectResolver: browserPopupRedirectResolver,
+        });
+    }
+
+    }
+    
+    const auth = provideAuth(app);
     const database = getDatabase(app);
 
     return (
