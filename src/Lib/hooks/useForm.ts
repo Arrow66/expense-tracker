@@ -114,9 +114,6 @@ const useForm = (callback: () => void,initialFormState: Values) => {
         setErrors({});
     }
 
-    console.log(errors,values)
-
-
     const handleSubmit = (event: SyntheticEvent) => {
         
         if (event) event.preventDefault();
@@ -129,9 +126,7 @@ const useForm = (callback: () => void,initialFormState: Values) => {
             }
         }
         setErrors(newErrors);
-    
-        console.log(newErrors);
-          
+              
         if (Object.keys(newErrors).length === 0) {
             callback();
         } else {

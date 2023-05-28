@@ -7,13 +7,13 @@ interface Transaction {
   transactionName: string;
   transactionType: string;
   amount: string;
+  NO_ID_FIELD:string;
 }
 
 const Table: React.FunctionComponent<{ transactions: DatabaseReference; onUpdateSum: (sum: number) => void }> = ({ transactions, onUpdateSum }) => {
   const { data: user } = useUser<User>();
 
   const { data: transactionData, status: transactionStatus }: { data: Transaction[] | null; status: string } = useDatabaseListData(child(transactions, user?.uid || ''));
-
   useEffect(() => {
     if (transactionData) {
       const sum = transactionData.reduce<number>((acc, trs) => {
@@ -45,8 +45,8 @@ const Table: React.FunctionComponent<{ transactions: DatabaseReference; onUpdate
           </tr>
         </thead>
         <tbody>
-          {transactionData?.map(({ transactionName, transactionType, amount }) => (
-            <tr key={transactionName} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          {transactionData?.map(({ transactionName, transactionType, amount,NO_ID_FIELD }) => (
+            <tr key={NO_ID_FIELD} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{transactionName}</td>
               <td className={transactionType === 'expense' ? 'px-6 py-4 text-red-700' : 'px-6 py-4 text-green-700'}>
                 {transactionType === 'expense' ? '-' : '+'}
