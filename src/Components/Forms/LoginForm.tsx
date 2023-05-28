@@ -2,7 +2,7 @@
 
 import useForm from "@/Lib/hooks/useForm";
 import useSignInWithEmailAndPassword from "@/Lib/hooks/useSignInWithEmailAndPassword";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useAuth } from 'reactfire';
 

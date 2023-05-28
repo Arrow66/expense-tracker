@@ -6,7 +6,7 @@ import {
     AuthProvider,
     DatabaseProvider
 } from 'reactfire';
-import { initializeAuth, browserLocalPersistence, browserPopupRedirectResolver,inMemoryPersistence, browserSessionPersistence, indexedDBLocalPersistence, getAuth, } from "firebase/auth";
+import { initializeAuth, browserLocalPersistence, browserPopupRedirectResolver,inMemoryPersistence, indexedDBLocalPersistence, getAuth, } from "firebase/auth";
 import configuration from '~/configuration';
 import { ReactNode } from "react"
 import { getDatabase } from 'firebase/database';
@@ -18,22 +18,24 @@ interface FireBaseProviderProps {
 
 const FireBaseProvider: React.FC<FireBaseProviderProps> = ({ children }) => {
     const app = initializeApp(configuration.firebase);
-    const persistence = typeof window === undefined ? inMemoryPersistence: [indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence]
+    const persistence = typeof window === undefined ? inMemoryPersistence: [indexedDBLocalPersistence, browserLocalPersistence]
     
     const provideAuth  = (app: FirebaseApp)=>{
-
-        if(typeof window === undefined)
+        if(typeof window == "undefined")
         {
             return getAuth(app)
 
-    }
-    else
-    {
-        return initializeAuth(app, {
-            persistence,
-            popupRedirectResolver: browserPopupRedirectResolver,
-        });
-    }
+        }
+        else
+        {     
+            return initializeAuth(app, {
+                persistence,
+                popupRedirectResolver: browserPopupRedirectResolver,
+            });
+
+        }
+      
+       
 
     }
     

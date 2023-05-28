@@ -1,6 +1,6 @@
 import useCreateUserWithEmailAndPassword from "@/Lib/hooks/useCreateUserWithEmailAndPassword";
 import useForm from "@/Lib/hooks/useForm";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from 'reactfire';
 
