@@ -27,8 +27,12 @@ export const Login: React.FC<LoginProps> = ({ toggleForm }) => {
     });
 
     useEffect(()=>{
+        if(loggedInUser)
+        {
+            router.push("/dashboard");
 
-        router.push("/dashboard");
+        }
+
 
     },[loading,loggedInUser])
 
