@@ -2,7 +2,7 @@
 
 Expense Tracker is a web application built with Next.js, Firebase, and Tailwind CSS that allows users to track their expenses. Users can log in or register, add and view their transactions, and see a summary of their total balance.
 
-![Expense Tracker Screenshot](./screenshot.png)
+![Expense Tracker Screenshot](./screenshot.PNG)
 
 ## Live Demo
 
